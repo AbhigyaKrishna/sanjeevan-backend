@@ -3,5 +3,8 @@ uvicorn
 websockets
 multiprocess
 boto3
-dotenv
 python-dotenv
+numpy
+opencv-python
+tensorflow
+mediapipe

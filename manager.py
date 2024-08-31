@@ -1,3 +1,4 @@
+from fastapi import WebSocket
 from model import PredictionModel
 from multiprocess import Pool
 

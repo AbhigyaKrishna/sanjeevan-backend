@@ -2,12 +2,12 @@ import numpy as np
 import cv2
 import base64
 from tensorflow.keras.models import load_model
-from mediapipe.solutions.holistic import Holistic 
+import mediapipe
 from config import actions
 
 model = load_model('model.keras')
 colors = [(245, 117, 16), (117, 245, 16), (16, 117, 245)]
-holistic = Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+holistic = mediapipe.solutions.holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 threshold = 0.5
 
