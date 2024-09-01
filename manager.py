@@ -26,7 +26,7 @@ class ConnectionManager:
             frames.append(data)
 
             if len(frames) >= 30:
-                self.__process_frames(frames, websocket)
+                await self.__process_frames(frames, websocket)
                 frames = []
     
     async def __process_frames(self, frames, websocket):
