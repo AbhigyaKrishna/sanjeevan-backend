@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import boto3
 import os
 from dotenv import load_dotenv
+import string
 
 
 load_dotenv()
@@ -11,6 +12,7 @@ load_dotenv()
 
 app = FastAPI()
 
+punctuation = set(string.punctuation)
 s3 = boto3.resource(
     's3',
     aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
@@ -43,7 +45,8 @@ class Req(BaseModel):
 
 @app.post("/translate")
 async def translate(body: Req):
-    tokens = body.text.lower().split(" ")
+    tokens = ''.join(ch for ch in body.text if ch not in punctuation)
+    tokens = tokens.lower().split(" ")
     tokens = [word if word in items else 'acting' for word in tokens]
     urls = {word: url + word + '.mp4' for word in tokens}
     return {
