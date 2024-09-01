@@ -24,7 +24,7 @@ class ConnectionManager:
         frames = []
         with Pool(3) as p:
             while True:
-                data = websocket.receive_text()
+                data = await websocket.receive_text()
                 frames.append(data)
 
                 if len(frames) >= 30:
