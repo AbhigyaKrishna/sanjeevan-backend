@@ -40,11 +40,11 @@ manager = ConnectionManager()
 
 @app.websocket("/video")
 async def video_websocket(ws: WebSocket):
-    await manager.connect(websocket)
+    await manager.connect(ws)
     try:
         manager.process_video(ws)
     except WebSocketDisconnect:
-        manager.disconnect(websocket)
+        manager.disconnect(ws)
 
 
 class Req(BaseModel):
