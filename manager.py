@@ -8,7 +8,7 @@ class ConnectionManager:
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
-        self.active_connections.append(websocket)
+        self.active_connections[websocket] = PredictionModel()
 
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
