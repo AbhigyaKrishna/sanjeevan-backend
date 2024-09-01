@@ -1,6 +1,5 @@
 from fastapi import WebSocket
 from model import PredictionModel
-from multiprocess import Pool
 
 class ConnectionManager:
     def __init__(self):
@@ -21,14 +20,14 @@ class ConnectionManager:
             await connection.send_text(message)
     
     async def process_video(self, websocket: WebSocket):
-        with Pool(3) as p:
-            frames = []
-            while True:
-                data = websocket.receive_text()
-                frames.append(data)
+        frames = []
+        while True:
+            data = websocket.receive_text()
+            frames.append(data)
 
-                if len(frames) == 30:
-                    p.apply_async(self.__process_frames, (frames, websocket))
+            if len(frames) >= 30:
+                self.__process_frames(frames, websocket)
+                frames = []
     
     async def __process_frames(self, frames, websocket):
         text = self.active_connections[websocket].predictISL(frames)
