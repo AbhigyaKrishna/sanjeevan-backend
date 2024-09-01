@@ -42,7 +42,7 @@ manager = ConnectionManager()
 async def video_websocket(ws: WebSocket):
     await manager.connect(ws)
     try:
-        manager.process_video(ws)
+        await manager.process_video(ws)
     except WebSocketDisconnect:
         manager.disconnect(ws)
 
